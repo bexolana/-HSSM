@@ -114,7 +114,7 @@
                     <span class="fas fa-th "></span>
                 </div>
                 <div class="nav_title">
-                    <span>Category</span>
+                    <span>Social Media</span>
                 </div>
             </a>
         </li>
@@ -151,10 +151,6 @@
 
                 <li class="">
                     <a href="/SalesSoldOut">Sold Out</a>
-                </li>
-
-                <li class="">
-                    <a href="/SalesCatagory">Catagory & Pricing</a>
                 </li>
 
             </ul>
@@ -195,11 +191,6 @@
                 </div>
             </a>
             <ul>
-
-                <li class="">
-                    <a href="/Analytics">Analytics and log</a>
-                </li>
-
                 <li class="">
                     <a href="/TransactionReport">Transaction Report</a>
                 </li>

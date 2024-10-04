@@ -74,28 +74,6 @@
                                                 </div>
 
                                                 <div class="col-xl-12">
-                                            <div class="primary_input mb-25">
-                                                <label class="primary_input_label" for="">Icon <strong
-                                                        class="text-danger">*</strong></label>
-                                                <select class="primary_select mb-25  " name="icon" id="icon" required>
-                                                    <option value="fa fa-thumbs-up"><i class="fa fa-thumbs-up"></i>
-                                                       Like</option>
-                                                    <option value="fa fa-share-square-o"><i class="fa fa-share-square-o"></i>
-                                                        Share </option>
-                                                    <option value="fa fa-smile-o"><i class="fa fa-smile-o"></i>
-                                                        React </option>
-                                                    <option value="fa fa-user-plus"><i class="fa fa-user-plus"></i>
-                                                        Follow </option>
-                                                    <option value="fa fa-comments-o"><i class="fa fa-comments-o"></i> 
-                                                    comments </option>
-                                                    <option value="fa fa-eye"><i class="fa fa-eye"></i> 
-                                                      View</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-
-                                                <div class="col-xl-12">
                                                     <div class="primary_input mb-25">
                                                         <label class="primary_input_label" for="nameInput">Mimumam Quantity
                                                             <strong class="text-danger">*</strong></label>
@@ -291,21 +269,7 @@
                                                             class="primary_input_field name " placeholder="Name" type="text" value="">
                                                     </div>
                                                 </div>
-                                                <div class="col-xl-12">
-                                            <div class="primary_input mb-25">
-                                                <label class="primary_input_label" for="">Icon <strong
-                                                        class="text-danger">*</strong></label>
-                                                <select class="primary_select mb-25  " name="icon" id="icon" required>
-                                                    <option value="fa fa-thumbs-up"><i class="fa fa-thumbs-up"></i>
-                                                       Like</option>
-                                                    <option value="fa fa-share-square-o"><i class="fa fa-share-square-o"></i>
-                                                        Share </option>
-                                                    <option value="fa fa-smile-o"><i class="fa fa-smile-o"></i>
-                                                        React </option>
-                                                    
-                                                </select>
-                                            </div>
-                                        </div>
+                                               
                                                 <div class="col-xl-12">
                                                     <div class="primary_input mb-25">
                                                         <label class="primary_input_label" for="nameInput">Mimumam Quantity

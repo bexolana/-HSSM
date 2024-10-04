@@ -29,7 +29,7 @@
                             <div class="white-box single-summery">
                                 <div class="d-flex justify-content-between gap-20">
                                     <div>
-                                        <h3>Users</h3>
+                                        <h3>Total Users</h3>
                                         <p class="mb-0">Number of Users</p>
                                     </div>
                                     <h1 class="gradient-color2" id="totalStudent"> ...
@@ -74,8 +74,8 @@
                             <div class="white-box single-summery">
                                 <div class="d-flex justify-content-between gap-20">
                                     <div>
-                                        <h3>Enrolled</h3>
-                                        <p class="mb-0">Number of Enrolled</p>
+                                        <h3>Total Admins</h3>
+                                        <p class="mb-0">Number of Admin</p>
                                     </div>
                                     <h1 class="gradient-color2" id="totalEnroll"> ...
                                     </h1>
@@ -88,10 +88,10 @@
                             <div class="white-box single-summery">
                                 <div class="d-flex justify-content-between gap-20">
                                     <div>
-                                        <h3>Enrolled Amount</h3>
-                                        <p class="mb-0">Total Enrolled Amount</p>
+                                        <h3>Total Service</h3>
+                                        <p class="mb-0">Number of Service</p>
                                     </div>
-                                    <h1 class="gradient-color2" id="totalSell"> ...
+                                    <h1 class="gradient-color2" id="totalEnroll"> ...
                                     </h1>
                                 </div>
                             </div>
@@ -278,7 +278,7 @@
                                 <table class="table lms_table_active">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Catagory</th>
+                                            <th scope="col">Social Media</th>
                                             <th scope="col">Service</th>
                                             <th scope="col">Enrolled</th>
                                             <th scope="col">Balance</th>

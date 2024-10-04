@@ -108,10 +108,8 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('/Service', 'Service');
     Route::get('/Sales', 'Sales');
     Route::get('/SalesSoldOut', 'SalesSoldOut');
-    Route::get('/SalesCatagory', 'SalesCatagory');
    // Route::get('/Payment', 'Payment');
     Route::get('/SocialLinks', 'SocialLinks');
-    Route::get('/Analytics', 'Analytics');
     Route::get('/TransactionReport', 'TransactionReport');
 
 })->middleware('auth');
