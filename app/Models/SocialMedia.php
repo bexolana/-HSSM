@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SocialMedia extends Model {
     protected $table = 'social_medias';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'uuid';
+
+    protected $table = 'social_medias';
 
     protected $fillable = [ 'name', 'icon', 'status', 'service_fee', 'created_by' ];
 

@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SocialMediaService extends Model
 {
+    protected $table = 'social_media_services';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'uuid';
+
     protected $fillable = [
         'social_media_id', 'service_id', 'max_number', 
         'min_number', 'start_time', 'acceptable_link', 

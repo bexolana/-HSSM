@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SellingOrder extends Model {
     protected $table = 'selling_order';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'uuid';
+
     protected $fillable = [
         'user_id', 'social_media_id',
         'type', 'link', 'follower_number',
