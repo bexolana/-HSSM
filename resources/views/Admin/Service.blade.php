@@ -154,7 +154,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">SL</th>
-                                                        <th scope="col">Catagory</th>
+                                                        <th scope="col">Social Media</th>
                                                         <th scope="col">Service Name</th>
                                                         <th scope="col">min | max amount</th>
                                                         <th scope="col">Status</th>
@@ -253,8 +253,8 @@
                                     <div class="row">
                                     <div class="col-xl-12">
                                             <div class="primary_input mb-25">
-                                                <label class="primary_input_label" for="catagory">Catagory<strong class="text-danger">*</strong></label>
-                                                <select class="primary_select mb-25" name="catagory" id="catagory">
+                                                <label class="primary_input_label" for="SocialMedia">Social Media<strong class="text-danger">*</strong></label>
+                                                <select class="primary_select mb-25" name="SocialMedia" id="Social Media">
                                                     <option value="">None</option>
                                                     <option value="">None</option>
                                                     
