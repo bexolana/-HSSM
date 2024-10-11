@@ -3,18 +3,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
-class Service extends Model
-{
+use str;
+class Service extends Model {
     protected $table = 'services';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'uuid';
+    protected $fillable = [ 'name', 'icon', 'status', 'created_by' ];
 
-    protected $fillable = ['name', 'status', 'created_by'];
-
-    public function socialMediaServices(): HasMany
+    public function socialMediaServices(): HasMany {
+        return $this->hasMany( SocialMediaService::class );
+    }
+    protected static function boot()
     {
-        return $this->hasMany(SocialMediaService::class);
+        parent::boot();
+
+        static::creating(function ($service) {
+            $service->id = (string) Str::uuid();
+        });
     }
 }

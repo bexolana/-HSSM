@@ -69,8 +69,17 @@ class UserController extends Controller {
         // Attempt to log the user in using Laravel's built-in Auth::attempt()
         if (Auth::attempt($credentials)) {
             // If successful, redirect the user to the intended page or dashboard
-           
-            return redirect()->intended('dashboard')->with('success', 'You are logged in!');
+            $logged_user = Auth::id();
+
+if ($logged_user) {
+    // User is logged in, do something with the user ID
+    dd("Logged in as user with ID: " . $logged_user);
+} else {
+    // No user is logged in
+    dd("No user is logged in.");
+}
+
+            return redirect()->intended('/dashboard')->with('success', 'You are logged in!');
         }
     
         // If unsuccessful, redirect back to login page with error message
@@ -81,7 +90,6 @@ class UserController extends Controller {
     public function logout(Request $request)
     {
         $logged_user = Auth::id();
-        dd($logged_user);
         // Check if it's an API request
         if ( $request->is( 'api/*' ) ) {
             try {
@@ -115,7 +123,7 @@ class UserController extends Controller {
     public function get_user() {
         $logged_user = Auth::id();
         $user = User::find( $logged_user );
-        return response()->json( [ 'user'=>$logged_user ] );
+        return response()->json( [ 'user'=>$user ] );
     }
 
     public function index() {

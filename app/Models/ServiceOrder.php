@@ -21,8 +21,8 @@ class ServiceOrder extends Model {
     {
         parent::boot();
 
-        static::creating(function ($user) {
-            $user->id = (string) Str::uuid();
+        static::creating(function ($serviceorder) {
+            $serviceorder->id = (string) Str::uuid();
         });
     }
     public function user(): BelongsTo {

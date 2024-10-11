@@ -2,7 +2,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentAgent;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentAgentController extends Controller {
     public function index() {
@@ -27,9 +29,10 @@ class PaymentAgentController extends Controller {
         $request->validate( [
             'id' => 'required|unique:payment_agents',
             'transaction_amount' => 'required',
+            'transaction_code'=>'required',
         ] );
-
-        PaymentAgent::create( $request->all() );
+        $logged_user = Auth::id();
+        Transaction::create( $request->all(), [ 'user_id'=>$logged_user ] );
         return response()->json( [
             'payment' => 'successfully created'
         ] );

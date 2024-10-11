@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\ServiceOrder;
+use App\Models\SocialMediaService;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ServiceOrderController extends Controller {
     public function get_orders() {
+
+        // Check if the user is logged in
+        $logged_user = Auth::id();
+        //
         $orders = ServiceOrder::latest()->get();
         return view( 'Admin.NewOrders', compact( 'orders' ) );
     }
@@ -27,7 +33,14 @@ class ServiceOrderController extends Controller {
         $get_request = ServiceOrder::find( $id );
         $logged_user = Auth::id();
         $get_request->rejected_by = $logged_user;
+        $get_the_user = $get_request->user_id;
+        $service_fee = $get_request->quantity * $get_request->socialMediaService->FeePerOne;
+        $user = User::find( $get_the_user );
+        $prev_balance = $user->balance;
+        $total_balance = $prev_balance + $service_fee;
+        $user->balance = $total_balance;
         $get_request->save();
+        $user->save();
     }
 
     public function admin_complete( $id ) {
@@ -40,14 +53,28 @@ class ServiceOrderController extends Controller {
 
     public function order_service( Request $request ) {
         $request->validate( [
-            'user_id' => 'required|exists:users,id',
-            'sms_id' => 'required|exists:social_media_services,id',
+            'sms_id' => 'required|exists:social_media_services,social_media_id',
             'link' => 'required',
             'quantity' => 'required|integer',
-            'FeePerOne' => 'required|numeric',
         ] );
-
-        ServiceOrder::create( $request->all() );
+        $logged_user = Auth::id();
+        $quantity = $request->input( 'quantity' );
+        $get_social_media = SocialMediaService::find( $request->input( 'sms_id' ) );
+        $price_per_one = $get_social_media->FeePerOne;
+        $service_fee = $price_per_one *  $quantity;
+        $data = $request->all();
+        $data[ 'user_id' ] = $logged_user;
+        ServiceOrder::create( $data );
+        $logged_user = Auth::id();
+        $user = User::find( $logged_user );
+        $prev_balance = $user->balance;
+        if ( $prev_balance<$service_fee ) {
+            return response()->json( [ 'Error'=>'Your balance is low, so you cannot get the service' ] );
+        }
+        $total_balance = $prev_balance - $service_fee;
+        $user->balance = $total_balance;
+        $user->save();
+        // Reduce Balance
         return redirect()->route( 'service-orders.index' )->with( 'success', 'Service Order created successfully.' );
     }
 

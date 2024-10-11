@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SellingOrder;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,6 +15,12 @@ class SellingOrderController extends Controller {
 
     public function admin_reject( $id ) {
         $sell_ord = SellingOrder::find( $id );
+        $user = User::find( $sell_ord->user_id );
+        $prev_balance = $user->balance;
+        $service_fee = $sell_ord->service_fee;
+        $total_balance = $prev_balance + $service_fee;
+        $user->balance = $total_balance;
+        $user->save();
         $sell_ord->delete();
         return view( 'Admin.Sales' );
     }
@@ -37,9 +44,12 @@ class SellingOrderController extends Controller {
         $request->validate( [
             'social_media_id' => 'required|exists:social_medias,id',
             'type' => 'required',
+            'social_m_name' =>'required|string',
+            'selling_price' => 'required|numeric',
             'link' => 'required',
             'follower_number' => 'required|integer',
-            'selling_price' => 'required|numeric',
+            'seller_phone' => 'required|numeric',
+            'description' => 'required',
         ] );
         $logged_user = Auth::id();
         // Get the logged-in user's ID
@@ -48,8 +58,18 @@ class SellingOrderController extends Controller {
         $data = array_merge( $request->all(), [ 'user_id' => $logged_user ] );
 
         // Create the SellingOrder with the merged data
-        SellingOrder::create( $data );
-        return redirect()->route( 'selling-orders.index' )->with( 'success', 'Selling Order created successfully.' );
+        $sell = SellingOrder::create( $data );
+        $logged_user = Auth::id();
+        $user = User::find( $logged_user );
+        $prev_balance = $user->balance;
+        $service_fee = $request->input( 'selling_price' );
+        if ( $prev_balance<$service_fee ) {
+            return response()->json( [ 'Error'=>'Your balance is low, so you cannot get the service' ] );
+        }
+        $total_balance = $prev_balance - $service_fee;
+        $user->balance = $total_balance;
+        return response()->json( [ 'success' =>$sell ] );
+        //return redirect()->route( 'selling-orders.index' )->with( 'success', 'Selling Order created successfully.' );
     }
 
     public function show( SellingOrder $order ) {
@@ -73,5 +93,11 @@ class SellingOrderController extends Controller {
     public function destroy( SellingOrder $order ) {
         $order->delete();
         return redirect()->route( 'selling-orders.index' )->with( 'success', 'Selling Order deleted successfully.' );
+    }
+
+    public function get_my_orders() {
+        $logged_user = Auth::id();
+        $sold = SellingOrder::where( 'user_id', $logged_user )->get();
+        return response()->json( [ 'your_orders' =>$sold ] );
     }
 }

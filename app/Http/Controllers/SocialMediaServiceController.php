@@ -2,54 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SocialMediaService;
+use App\Models\SocialMedia;
 use Illuminate\Http\Request;
 
-class SocialMediaServiceController extends Controller {
+class SocialMediaController extends Controller {
     public function index() {
-        $socialMediaServices = SocialMediaService::all();
-        return view( 'social_media_services.index', compact( 'socialMediaServices' ) );
+        // $socialMedias = SocialMedia::all();
+        return view( 'Admin.SMCreateionPage' );
     }
 
-    public function create() {
-        return view( 'social_media_services.create' );
+    public function social_media_creation( Request $request ) {
+        $name = $request->input( 'name' );
+        $name = $request->file( 'icon' );
+        return view( 'social_medias.create' );
     }
 
-    public function sm_service_create( Request $request ) {
+    public function create_social_media( Request $request ) {
         $request->validate( [
-            'social_media_id' => 'required|exists:social_medias,id',
-            'service_name' => 'required',
-            'max_number' => 'required|integer',
-            'min_number' => 'required|integer',
-            'start_time' =>'required|date',
-            'description' =>'required|string',
-            'FeePerOne' => 'required|numeric',
+            'name' => 'required|unique:social_medias',
+            'icon' => 'required|file',
+            'price' => 'required|integer'
         ] );
 
-        SocialMediaService::create( $request->all() );
-        return redirect()->route( 'social-media-services.index' )->with( 'success', 'Social Media Service created successfully.' );
+        SocialMedia::create( $request->all() );
+        return redirect()->route( 'social-medias.index' )->with( 'success', 'Social Media created successfully.' );
     }
 
-    public function show( SocialMediaService $socialMediaService ) {
-        return view( 'social_media_services.show', compact( 'socialMediaService' ) );
+    public function show( SocialMedia $socialMedia ) {
+        return view( 'social_medias.show', compact( 'socialMedia' ) );
     }
 
-    public function update( Request $request, SocialMediaService $socialMediaService ) {
+    public function update( Request $request, SocialMedia $socialMedia ) {
         $request->validate( [
-            'social_media_id' => 'required|exists:social_medias,id',
-            'service_name' => 'required',
-            'max_number' => 'required|integer',
-            'min_number' => 'required|integer',
-            'start_time' =>'required|date',
-            'description' =>'required|string',
-            'FeePerOne' => 'required|numeric',
+            'name' => 'required|unique:social_medias,name,' . $socialMedia->id,
+            'icon' => 'required',
         ] );
-        $socialMediaService->update( $request->all() );
-        return redirect()->route( 'social-media-services.index' )->with( 'success', 'Social Media Service updated successfully.' );
+
+        $socialMedia->update( $request->all() );
+        return redirect()->route( 'social-medias.index' )->with( 'success', 'Social Media updated successfully.' );
     }
 
-    public function destroy( SocialMediaService $socialMediaService ) {
-        $socialMediaService->delete();
-        return redirect()->route( 'social-media-services.index' )->with( 'success', 'Social Media Service deleted successfully.' );
+    public function delete_sm( SocialMedia $socialMedia ) {
+        $socialMedia->delete();
+        return redirect()->route( 'social-medias.index' )->with( 'success', 'Social Media deleted successfully.' );
     }
 }
